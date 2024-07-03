@@ -10,6 +10,11 @@ const wss = new WebSocket.Server({ server });
 
 const clients = {};
 
+// Endpoint HTTP GET để kiểm tra kết nối
+app.get('/test', (req, res) => {
+  res.send('HTTP GET request successful');
+});
+
 wss.on("connection", function connection(ws, req) {
   const parameters = url.parse(req.url, true);
   const token = parameters.query.token;
