@@ -24,7 +24,7 @@ wss.on("connection", function connection(ws, req) {
   console.log("Client connected with token:", token);
 
   ws.on("message", function incoming(message) {
-    data = JSON.parse(message);
+    const data = JSON.parse(message);
 
     if (data.timestamp) {
       const date = new Date(data.timestamp);
@@ -38,12 +38,11 @@ wss.on("connection", function connection(ws, req) {
         (error, results, fields) => {
           if (error) {
             console.log(error);
-          } else {
           }
         }
       );
     } else {
-      if (token != data.userId) {
+      if (token !== data.userId) {
         const query =
           "INSERT INTO Notifications (senderId, receivedId, message, seen) VALUES (?, ?, ?, false)";
         connectionSql.query(
